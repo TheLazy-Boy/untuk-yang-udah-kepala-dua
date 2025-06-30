@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Mbull ❤️</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            .whack-grid {
+                max-width: 300px;
+                gap: 10px;
+            }
+            
+            .whack-hole {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .mbull-emoji {
+                font-size: 2.5rem;
+            }
+            
+            .game-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .dialog-content {
+                padding: 30px 20px;
+                margin: 15px;
+            }
+            
+            .dialog-buttons {
+                flex-direction: column;
+            }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f0e8 0%, #e8ddd4 50%, #d4c4b0 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f5f0e8 0%, #e8ddd4 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading-heart {
+            font-size: 3rem;
+            color: #d4a574;
+            animation: heartbeat 1s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .loading-text {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #8b7355;
+            text-align: center;
+        }
+        
+        /* Game Section */
+        .game-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .game-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: #8b7355;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .game-instruction {
+            font-size: 1.1rem;
+            color: #a0956b;
+            margin-bottom: 50px;
+            max-width: 600px;
+        }
+        
+        .cake-container {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            margin: 0 auto;
+        }
+        
+        .cake-layer {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .cake-layer.show {
+            opacity: 1;
+        }
+        
+        .cake-base {
+            width: 250px;
+            height: 80px;
+            background: linear-gradient(135deg, #d4a574 0%, #b8956f 100%);
+            border-radius: 10px;
+            bottom: 50px;
+            border: 3px solid #a0876b;
+            transform: translateX(-50%) translateY(100px);
+        }
+        
+        .cake-base.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .cake-middle {
+            width: 200px;
+            height: 70px;
+            background: linear-gradient(135deg, #e8ddd4 0%, #d4c4b0 100%);
+            border-radius: 10px;
+            bottom: 130px;
+            border: 3px solid #b8a693;
+            transform: translateX(-50%) translateY(100px);
+        }
+        
+        .cake-middle.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .cake-top {
+            width: 150px;
+            height: 60px;
+            background: linear-gradient(135deg, #f5f0e8 0%, #e8ddd4 100%);
+            border-radius: 10px;
+            bottom: 200px;
+            border: 3px solid #d4c4b0;
+            transform: translateX(-50%) translateY(100px);
+        }
+        
+        .cake-top.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .candles {
+            position: absolute;
+            bottom: 250px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            display: flex;
+            gap: 15px;
+        }
+        
+        .candles.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .candle {
+            width: 8px;
+            height: 30px;
+            background: #d4a574;
+            border-radius: 4px;
+            position: relative;
+        }
+        
+        .flame {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 15px;
+            background: radial-gradient(circle, #ff6b35 0%, #ff8e53 70%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: flicker 0.5s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-1deg); }
+            100% { transform: translateX(-50%) scale(1.1) rotate(1deg); }
+        }
+        
+        .continue-btn {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #d4a574 0%, #b8956f 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
+        }
+        
+        .continue-btn.show {
+            opacity: 1;
+        }
+        
+        .continue-btn:hover {
+            transform: translateX(-50%) translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, 0.4);
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: none;
+            min-height: 100vh;
+            padding: 50px 0;
+        }
+        
+        .main-content.show {
+            display: block;
+            animation: fadeInUp 1s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .main-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: #8b7355;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .section h2 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #8b7355;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .apology-section {
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #6b5b47;
+        }
+        
+        .poem-section {
+            background: linear-gradient(135deg, rgba(248, 243, 235, 0.9) 0%, rgba(240, 232, 220, 0.9) 100%);
+        }
+        
+        .poem-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: #8b7355;
+            text-align: center;
+            white-space: pre-line;
+            margin: 25px 0;
+        }
+        
+        .quotes-section {
+            text-align: center;
+        }
+        
+        .quote {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #8b7355;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(212, 165, 116, 0.1);
+            border-radius: 15px;
+            border-left: 4px solid #d4a574;
+        }
+        
+        .final-message {
+            text-align: center;
+            font-size: 1.3rem;
+            color: #8b7355;
+            line-height: 1.8;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(184, 149, 111, 0.1) 100%);
+            border-radius: 20px;
+            margin-top: 40px;
+        }
+        
+        /* Floating Hearts */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            color: rgba(212, 165, 116, 0.6);
+            font-size: 20px;
+            animation: float 6s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Music Control */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #8b7355;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+        
+        
+        /* Minigame Styles */
+        .minigame-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 50px 0;
+        }
+        
+        .game-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #8b7355;
+        }
+        
+        .stat {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .whack-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 400px;
+            margin: 30px auto;
+        }
+        
+        .whack-hole {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #e8ddd4 0%, #d4c4b0 100%);
+            border-radius: 20px;
+            border: 3px solid #b8a693;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .whack-hole:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .mbull-emoji {
+            font-size: 3rem;
+            animation: popUp 0.3s ease;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+        
+        .mbull-emoji:hover {
+            transform: scale(1.2);
+        }
+        
+        .mbull-emoji.hit {
+            animation: hit 0.3s ease;
+        }
+        
+        @keyframes popUp {
+            0% { transform: scale(0) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); }
+        }
+        
+        @keyframes hit {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5) rotate(180deg); }
+            100% { transform: scale(0) rotate(360deg); }
+        }
+        
+        .game-message {
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #8b7355;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .game-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .game-btn {
+            background: linear-gradient(135deg, #d4a574 0%, #b8956f 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
+        }
+        
+        .game-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, 0.4);
+        }
+        
+        .surrender-btn {
+            background: linear-gradient(135deg, #a0956b 0%, #8b7355 100%);
+        }
+        
+        .surrender-dialog {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .dialog-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            margin: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .dialog-content h3 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: #8b7355;
+            margin-bottom: 20px;
+        }
+        
+        .dialog-content p {
+            font-size: 1.1rem;
+            color: #6b5b47;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .dialog-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .dialog-btn {
+            background: linear-gradient(135deg, #d4a574 0%, #b8956f 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
+        }
+        
+        .dialog-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, 0.4);
+        }
+        
+        .give-up {
+            background: linear-gradient(135deg, #a0956b 0%, #8b7355 100%);
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .main-title {
+                font-size: 3rem;
+            }
+            
+            .game-title {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 25px;
+                margin: 20px 0;
+            }
+            
+            .section h2 {
+                font-size: 2rem;
+            }
+            
+            .poem-text {
+                font-size: 1.2rem;
+            }
+            
+            .cake-container {
+                width: 250px;
+                height: 350px;
+            }
+            
+            .cake-base {
+                width: 200px;
+                height: 70px;
+            }
+            
+            .cake-middle {
+                width: 160px;
+                height: 60px;
+            }
+            
+            .cake-top {
+                width: 120px;
+                height: 50px;
+            }
+        }
+        
+        .hidden {
+            opacity: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="hbd.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Music Control -->
+    <button class="music-control" onclick="toggleMusic()" id="musicBtn">🎵</button>
+    
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-heart">💖</div>
+        <div class="loading-text">
+            <p>Sedang menyiapkan surprise untuk nazwa tersayang...</p>
+            <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">Sebentar ya, jangan kemana-mana! 💕</p>
+        </div>
+    </div>
+    
+    <!-- Floating Hearts -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <!-- Game Section -->
+    <div class="game-section" id="gameSection">
+        <div class="container">
+            <h1 class="game-title">Halo Mbull Sayang! 💕</h1>
+            <p class="game-instruction">
+                aku belum bisa ngasih kue asli, jadi kue virtual dulu nihh! hehe 🎂✨
+            </p>
+            
+            <div class="cake-container">
+                <div class="cake-layer cake-base" id="cakeBase"></div>
+                <div class="cake-layer cake-middle" id="cakeMiddle"></div>
+                <div class="cake-layer cake-top" id="cakeTop"></div>
+                <div class="cake-layer candles" id="candles">
+                    <div class="candle"><div class="flame"></div></div>
+                    <div class="candle"><div class="flame"></div></div>
+                    <div class="candle"><div class="flame"></div></div>
+                </div>
+            </div>
+            
+            <button class="continue-btn" id="continueBtn" onclick="showMinigame()">
+                Lanjut ke Challenge! 🎮
+            </button>
+        </div>
+    </div>
+    
+    
+    <!-- Minigame Section -->
+    <div class="minigame-section" id="minigameSection" style="display: none;">
+        <div class="container">
+            <h1 class="game-title">Challenge Time! 🎯</h1>
+            <p class="game-instruction">
+                Sebelum masuk ke surprise utama, ada challenge kecil nih! 
+                Klik emoji Mbull yang muncul! Target: 10 poin. Miss limit: 5x. 
+                Siap-siap kesel ya sayang! 😈💕
+            </p>
+            
+            <div class="game-stats">
+                <div class="stat">
+                    <span>Poin: </span>
+                    <span id="score">0</span>/10
+                </div>
+                <div class="stat">
+                    <span>Miss: </span>
+                    <span id="misses">0</span>/5
+                </div>
+            </div>
+            
+            <div class="whack-grid">
+                <div class="whack-hole" data-index="0"></div>
+                <div class="whack-hole" data-index="1"></div>
+                <div class="whack-hole" data-index="2"></div>
+                <div class="whack-hole" data-index="3"></div>
+                <div class="whack-hole" data-index="4"></div>
+                <div class="whack-hole" data-index="5"></div>
+                <div class="whack-hole" data-index="6"></div>
+                <div class="whack-hole" data-index="7"></div>
+                <div class="whack-hole" data-index="8"></div>
+            </div>
+            
+            <div class="game-message" id="gameMessage"></div>
+            
+            <div class="game-buttons">
+                <button class="game-btn restart-btn" id="restartBtn" onclick="restartGame()" style="display: none;">
+                    Coba Lagi! 💪
+                </button>
+                <button class="game-btn surrender-btn" id="surrenderBtn" onclick="showSurrenderDialog()" style="display: none;">
+                    Menyerah... 😔
+                </button>
+            </div>
+            
+            <!-- Surrender Dialog -->
+            <div class="surrender-dialog" id="surrenderDialog" style="display: none;">
+                <div class="dialog-content">
+                    <h3>Mau Menyerah? 🥺</h3>
+                    <p id="surrenderText"></p>
+                    <div class="dialog-buttons">
+                        <button class="dialog-btn continue-fight" onclick="hideSurrenderDialog()">
+                            Gas Terus! 🔥
+                        </button>
+                        <button class="dialog-btn give-up" onclick="skipToMainContent()">
+                            Iya Menyerah 😅
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main-content" id="mainContent">
+        <div class="container">
+            <h1 class="main-title">🎉 Happy Birthday Mbull! 🎉</h1>
+            
+            <!-- Apology Section -->
+            <div class="section apology-section">
+                <h2>Maaf Ya Sayang... 🥺</h2>
+                <p>
+                    Aku tau ini udah telat ngucapin selamat ulang tahun... 
+                    Bukan karena lupa atau ga peduli sama kamu, tapi karena aku lagi disiksa sama tugas-tugas UAS yang ga ada habisnya! 😭
+                </p>
+                <p style="margin-top: 15px;">
+                    Dosen-dosen pada sadis semua, deadline bertebaran kayak confetti (tapi ga seindah confetti). 
+                    Tapi walau otak udah kayak kerupuk gosong, aku tetep inget hari spesial kamu kok! 💕
+                </p>
+                <p style="margin-top: 15px;">
+                    Maafin pacar baru yang satu ini ya... aku usahain on time next time! 🙏
+                </p>
+            </div>
+            
+            <!-- Poem Section -->
+            <div class="section poem-section">
+                <h2>Puisi Absurd dari Hati (dari yang Ga Bisa Puisi hhe) 📝</h2>
+                <div class="poem-text">
+"Untuk Mbull, Si kanjeng ratu"
+
+Kalau aku boleh jujur dikit,
+cintaku ke kamu tuh kaya kamu ke makan—
+ada niat, tapi nggak dilakuin. 😌
+Tapi nggak apa-apa,
+karena liat kamu aja aku udah kenyang…
+…kenyang rindu, maksudnya. 😘
+
+Kamu itu lucu banget,
+sampe kucing kamu aja kayaknya minder.
+Gemoynya kamu tuh bukan main,
+kayak bakpau anget. (ngebul dong)
+
+Kadang aku pengen bilang:
+“Sayang, makan dulu dong…”
+Tapi kamu jawabnya,
+“Ntar, nareng kamu aja”
+Astaga Mbull…
+Harus aku bungkusin nasi + foto aku kah??
+
+Kamu itu mageran,
+tapi cintaku ke kamu rajin banget,
+rajin mikirin kamu tiap menit,
+rajin ngingetin kamu makan walau ujung-ujungnya…
+aku yang lapar sendiri. 🍜
+
+Kalau suatu hari kamu jadi astronot,
+aku akan jadi bulan.
+Biar kamu tetap muter-muter di pikiranku,
+walau kamu rebahan… di ruang angkasa. 🌕 😅</div>
+            </div>
+            
+            <!-- Quotes Section -->
+            <div class="section quotes-section">
+                <h2>Quotes Romantis (tapi boong) 💭</h2>
+                
+                <div class="quote">
+                    "lii, kamu tau ga? Sejak kenal kamu, aku pengen rajin bangun pagi... buat ngeliat good morning message dari kamu!(tapi kamunya bangun siang terus -_-) 😂💕"
+                </div>
+                
+                <div class="quote">
+                    "Kata orang, cinta itu buta. Tapi aku ga buta kok, aku bisa liat jelas betapa cantiknya kamu, apalagi pas liat foto kamu yg nyengir itu! 😍"
+                </div>
+                
+                <div class="quote">
+                    "Kamu kayak charger HP ku... tanpa kamu, hidup aku ga ada power! (Lebay ya? 😄)"
+                </div>
+                
+                <div class="quote">
+                    "Mereka bilang 'Home is where the heart is'. Berarti rumah aku di hati kamu dong? Boleh ga aku nunggak bayar kontraknya? 😂"
+                </div>
+                
+                <div class="quote">
+                    "Mbull, kamu tau kenapa aku suka banget sama kamu? Karena kamu satu-satunya yang bisa bikin aku lupa sama tugas... eh, itu malah bahaya ya? wkwk 😅"
+                </div>
+            </div>
+            
+            <!-- Final Message -->
+            <div class="final-message">
+                <p>
+                    Mbull, walau kita baru jadian 2 hari yang lalu (28 kemarin), tapi rasanya udah kayak kenal dari dulu banget! 
+                    Makasih ya udah mau nerima aku yang rada rada ini jadi pacar kamu. 😊
+                </p>
+                <p style="margin-top: 20px;">
+                    Semoga di tahun yang baru ini, kamu makin cantik (walau udah cantik banget), makin sehat (walau suka lupa makan), 
+                    dan yang paling penting... semoga kita bisa terus bersama, walaupun aku suka rada aneh! 😄
+                </p>
+                <p style="margin-top: 20px; font-size: 1.5rem; font-weight: 600;">
+                    Happy Birthday, Mbull tersayang! 🎂✨💕
+                </p>
+                <p style="margin-top: 15px; font-size: 1.1rem; opacity: 0.8;">
+                    Love you to the moon and back! 🌙⭐
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let musicPlaying = false;
+        let cakeAnimationComplete = false;
+        let gameData = {
+            score: 0,
+            misses: 0,
+            gameActive: false,
+            failCount: 0,
+            currentMbull: null,
+            gameSpeed: 1500,
+            mbullTimeout: null
+        };
+        
+        const failMessages = [
+            "Ahh payahh, kok meleset sih! wkwk😅",
+            "Aduh sayang, fokus dong! Ini kan hari spesial kamu! 💕",
+            "Ih Mbull, masa lagi ultah malah nyerah sih! 😏",
+            "Ayolah, kan lagi spesial day-nya! Aku tau kamu bisa! 💪",
+            "Udah capek ya? Gapapa, tapi coba lagi dulu yuk! 🥺"
+        ];
+        
+        const surrenderMessages = [
+            "Ahh payah! Masa lagi ultah nyerah! Tapi gapapa, aku tetep sayang kok sama liaa yang payah ini! 😂💕",
+            "Itu baru Mbull yang aku kenal! Suka nyerah kalau susah! Tapi tetep lucu sih... 😅❤️",
+            "Yasudah deh, mungkin jari kamu lagi capek ya? Maklum, habis scroll terus! 😏💖",
+            "Gapapa sayang, ga semua orang jago main game kok! Yang penting kamu jago jaga hati aku! 🥰"
+        ];
+        
+        // Initialize
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.display = 'none';
+                    startCakeAnimation();
+                }, 500);
+            }, 2000);
+            
+            createFloatingHearts();
+        });
+        
+        //Music Control
+        function toggleMusic() {
+            const music = document.getElementById('bgMusic');
+            const btn = document.getElementById('musicBtn');
+            
+            if (musicPlaying) {
+                music.pause();
+                btn.textContent = '🔇';
+                musicPlaying = false;
+            } else {
+                music.play().catch(e => console.log('Audio play failed:', e));
+                btn.textContent = '🎵';
+                musicPlaying = true;
+            }
+        }
+        
+        // Cake Animation
+        function startCakeAnimation() {
+            const layers = [
+                { id: 'cakeBase', delay: 500 },
+                { id: 'cakeMiddle', delay: 1500 },
+                { id: 'cakeTop', delay: 2500 },
+                { id: 'candles', delay: 3500 }
+            ];
+            
+            layers.forEach(layer => {
+                setTimeout(() => {
+                    document.getElementById(layer.id).classList.add('show');
+                    
+                    if (layer.id === 'candles') {
+                        setTimeout(() => {
+                            document.getElementById('continueBtn').classList.add('show');
+                            cakeAnimationComplete = true;
+                        }, 800);
+                    }
+                }, layer.delay);
+            });
+        }
+        
+        // Show Minigame
+        function showMinigame() {
+            if (!cakeAnimationComplete) return;
+            
+            document.getElementById('gameSection').style.display = 'none';
+            document.getElementById('minigameSection').style.display = 'flex';
+            
+            setTimeout(() => {
+                startWhackGame();
+            }, 500);
+        }
+        
+        // Show Main Content
+        function showMainContent() {
+            document.getElementById('minigameSection').style.display = 'none';
+            document.getElementById('mainContent').classList.add('show');
+            
+            // Auto play music
+            setTimeout(() => {
+                if (!musicPlaying) {
+                    toggleMusic();
+                }
+            }, 1000);
+        }
+        
+        // Skip to main content (surrender)
+        function skipToMainContent() {
+            hideSurrenderDialog();
+            showMainContent();
+        }
+        
+        // Whack-a-Mbull Game
+        function startWhackGame() {
+            gameData = {
+                score: 0,
+                misses: 0,
+                gameActive: true,
+                failCount: 0,
+                currentMbull: null,
+                gameSpeed: 1500,
+                mbullTimeout: null
+            };
+            
+            updateGameStats();
+            document.getElementById('gameMessage').textContent = 'Game dimulai! Klik emoji yang muncul! 🎯';
+            document.getElementById('restartBtn').style.display = 'none';
+            document.getElementById('surrenderBtn').style.display = 'none';
+            
+            spawnMbull();
+        }
+        
+        function spawnMbull() {
+            if (!gameData.gameActive) return;
+            
+            // Clear previous mbull
+            if (gameData.currentMbull) {
+                gameData.currentMbull.innerHTML = '';
+                gameData.currentMbull = null;
+            }
+            
+            // Random hole
+            const holes = document.querySelectorAll('.whack-hole');
+            const randomHole = holes[Math.floor(Math.random() * holes.length)];
+            
+            // Create mbull emoji
+            const mbullEmoji = document.createElement('div');
+            mbullEmoji.className = 'mbull-emoji';
+            mbullEmoji.textContent = '😊'; // Mbull emoji
+            
+            mbullEmoji.addEventListener('click', hitMbull);
+            randomHole.appendChild(mbullEmoji);
+            gameData.currentMbull = randomHole;
+            
+            // Remove mbull after timeout
+            gameData.mbullTimeout = setTimeout(() => {
+                if (gameData.currentMbull === randomHole) {
+                    randomHole.innerHTML = '';
+                    gameData.currentMbull = null;
+                    
+                    if (gameData.gameActive) {
+                        gameData.misses++;
+                        updateGameStats();
+                        showFailMessage();
+                        
+                        if (gameData.misses >= 5) {
+                            gameOver();
+                        } else {
+                            setTimeout(spawnMbull, 500);
+                        }
+                    }
+                }
+            }, Math.max(800, gameData.gameSpeed - (gameData.score * 50)));
+            
+            // Increase difficulty
+            if (gameData.gameSpeed > 600) {
+                gameData.gameSpeed -= 20;
+            }
+        }
+        
+        function hitMbull(event) {
+            event.stopPropagation();
+            
+            if (!gameData.gameActive) return;
+            
+            const mbullEmoji = event.target;
+            mbullEmoji.classList.add('hit');
+            
+            gameData.score++;
+            updateGameStats();
+            
+            // Clear timeout
+            if (gameData.mbullTimeout) {
+                clearTimeout(gameData.mbullTimeout);
+            }
+            
+            // Remove mbull
+            setTimeout(() => {
+                if (gameData.currentMbull) {
+                    gameData.currentMbull.innerHTML = '';
+                    gameData.currentMbull = null;
+                }
+            }, 300);
+            
+            if (gameData.score >= 10) {
+                gameWin();
+            } else {
+                document.getElementById('gameMessage').textContent = 'Bagus! Terus semangat! 🔥';
+                setTimeout(spawnMbull, 600);
+            }
+        }
+        
+        function updateGameStats() {
+            document.getElementById('score').textContent = gameData.score;
+            document.getElementById('misses').textContent = gameData.misses;
+        }
+        
+        function showFailMessage() {
+            gameData.failCount++;
+            const message = failMessages[Math.min(gameData.failCount - 1, failMessages.length - 1)];
+            document.getElementById('gameMessage').textContent = message;
+            
+            if (gameData.failCount >= 3) {
+                document.getElementById('surrenderBtn').style.display = 'inline-block';
+            }
+        }
+        
+        function gameOver() {
+            gameData.gameActive = false;
+            document.getElementById('gameMessage').textContent = 'Game Over! Coba lagi yuk sayang! 😅';
+            document.getElementById('restartBtn').style.display = 'inline-block';
+            
+            if (gameData.failCount >= 3) {
+                document.getElementById('surrenderBtn').style.display = 'inline-block';
+            }
+        }
+        
+        function gameWin() {
+            gameData.gameActive = false;
+            document.getElementById('gameMessage').textContent = 'Wah hebat! Itu baru Mbull yang aku kenal! Aku bangga sama pacar aku! 😍🔥';
+            
+            setTimeout(() => {
+                showMainContent();
+            }, 3000);
+        }
+        
+        function restartGame() {
+            // Clear any existing mbull
+            document.querySelectorAll('.whack-hole').forEach(hole => {
+                hole.innerHTML = '';
+            });
+            
+            if (gameData.mbullTimeout) {
+                clearTimeout(gameData.mbullTimeout);
+            }
+            
+            startWhackGame();
+        }
+        
+        function showSurrenderDialog() {
+            const randomMessage = surrenderMessages[Math.floor(Math.random() * surrenderMessages.length)];
+            document.getElementById('surrenderText').textContent = randomMessage;
+            document.getElementById('surrenderDialog').style.display = 'flex';
+        }
+        
+        function hideSurrenderDialog() {
+            document.getElementById('surrenderDialog').style.display = 'none';
+        }
+        
+        // Floating Hearts
+        function createFloatingHearts() {
+            const hearts = ['💕', '💖', '💗', '💝', '💘', '💓', '💞', '💟'];
+            const container = document.getElementById('floatingHearts');
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                heart.style.fontSize = (Math.random() * 10 + 15) + 'px';
+                
+                container.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 7000);
+            }, 2000);
+        }
+        
+        // Smooth scrolling for better experience
+        document.addEventListener('DOMContentLoaded', function() {
+            const style = document.createElement('style');
+            style.textContent = `
+                html {
+                    scroll-behavior: smooth;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+    </script>
+</body>
+</html>
